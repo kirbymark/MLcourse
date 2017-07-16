@@ -1,2 +1,6 @@
 # MLcourse
-One Paragraph of project description goes here
+Code for the Cousera ML course
+
+## Getting Started
+
+The code uses Octave Programming language
