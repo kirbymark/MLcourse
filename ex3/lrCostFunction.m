@@ -36,13 +36,17 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+%==== Not regularized ====
+%h=sigmoid(X*theta);
+%J = (1/m) * (-y' * log(h) - (1-y)' * log ( 1 - h));
+%grad = (1/m)*X'*(h - y);
 
-
-
-
-
-
-
+%==== Regularized ====
+h=sigmoid(X*theta);
+%want to regularize theta1, theta2, ... thetan
+theta_prime=[0;theta(2:size(theta))];
+J = (1/m) * (-y' * log(h) - (1-y)' * log ( 1 - h)) + (lambda/(2*m))* theta_prime' * theta_prime ;
+grad = (1/m)*(X'*(h - y) + lambda*theta_prime);
 
 
 % =============================================================
