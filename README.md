@@ -1,6 +1,5 @@
 # MLcourse
-Code for the Cousera ML course. 
-This site was built using [Cousera ML course](https://www.coursera.org/learn/machine-learning).
+Code for the [Cousera ML course](https://www.coursera.org/learn/machine-learning).
 
 
 ## Getting Started
