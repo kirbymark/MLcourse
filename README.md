@@ -1,5 +1,6 @@
 # MLcourse
-Code for the Cousera ML course
+Code for the Cousera ML course 
+The course is here : https://www.coursera.org/learn/machine-learning
 
 ## Getting Started
 
