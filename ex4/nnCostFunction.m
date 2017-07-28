@@ -63,20 +63,56 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+% ======== COST FUNCTION ========= 
+%==== create matrix for Y ====
+% need matrix to be size of training set * number of classes
+Y = zeros(m, num_labels);
+
+% the i'th row will be 1 and the rest zeros
+I = eye(num_labels);
+
+% for each row in the training set grab the right part of the I matrix
+for i = 1:m
+	  Y(i, :)= I(y(i), :);
+endfor
 
 
+%==== add the bias units to X
+A1 = [ones(m, 1) X];
+
+%Using formula for z2
+Z2 = A1 * Theta1';
+
+%Using formula for a2 and adding in bias units
+A2 = [ones(m, 1) sigmoid(Z2)];
+
+%Using formula for z3
+Z3 = A2*Theta2';
+
+%Using formula for H
+H = A3 = sigmoid(Z3);
+
+%cost funtion
+JwoReg = (1/m)*sum(sum((-Y).*log(H) - (1-Y).*log(1-H), 2));
+regTerm=(lambda/(2*m))*(sum(sum(Theta1(:, 2:end).^2, 2)) + sum(sum(Theta2(:,2:end).^2, 2)));
+
+J = JwoReg + regTerm;
 
 
+% ======== BACK PROPERGATION ========= 
 
+%Using formula 
 
+sigma3 = A3 - Y;
 
+%Using formula 
+sigma2 = (sigma3 *Theta2 .* sigmoidGradient([ones(size(Z2, 1), 1) Z2]))(:, 2:end);
 
+Delta_1 = sigma2'*A1;
+Delta_2 = sigma3'*A2;
 
-
-
-
-
-
+Theta1_grad = Delta_1./m + (lambda/m)*[zeros(size(Theta1,1), 1) Theta1(:, 2:end)];
+Theta2_grad = Delta_2./m + (lambda/m)*[zeros(size(Theta2,1), 1) Theta2(:, 2:end)];
 
 
 
