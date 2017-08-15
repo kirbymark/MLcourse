@@ -23,9 +23,31 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+possibleCValues = [0.01 0.03 0.1 0.3 1 3 10 30];
+possibleSigmaValues = [0.01 0.03 0.1 0.3 1 3 10 30];
+% start with ver large error value
+errorBenchmark=Inf;  
+fprintf('Starting error is = %f', errorBenchmark)
 
+for C = possibleCValues
+  for sigma = possibleSigmaValues
+    fprintf('.');
+    model = svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
+    err   = mean(double(svmPredict(model, Xval) ~= yval));
+    % if the new error is less than old keep track of the values used	
+    if( err <= errorBenchmark )
+      CFinal     = C;
+      sigmaFinal = sigma;
+	  % and set the new min error
+      errorBenchmark   = err;
+      fprintf('Smaller Error found with C, sigma = %f, %f - the error now is = %f', CFinal, sigmaFinal, errorBenchmark)
+    end
+  end
+end
+C     = CFinal;
+sigma = sigmaFinal;
 
-
+fprintf('Smallest Error found with C, sigma = %f, %f - the error now is = %f', CFinal, sigmaFinal, errorBenchmark)
 
 
 
