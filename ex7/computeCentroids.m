@@ -27,6 +27,20 @@ centroids = zeros(K, n);
 %
 
 
+% process each of K centroids
+for k = 1:K
+  num_k = 0;
+  sum = zeros(n, 1);
+  for i = 1:m
+    %choose the items mapped to this centroid
+    if ( idx(i) == k )
+      sum = sum + X(i, :)';
+      num_k = num_k + 1;
+    end
+  end
+  centroids(k, :) = (sum/num_k)';
+  
+end
 
 
 
