@@ -21,8 +21,19 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-
-
+% go through all items
+for i = 1:size(X, 1)
+  % track the distance with 
+  bestdistance = inf;
+  for k = 1:K
+    diff = X(i, :)'-centroids(k, :)';
+    newd = diff'*diff;
+    if (newd < bestdistance)
+      idx(i) = k;
+      bestdistance = newd;
+    end
+  end
+end
 
 
 
