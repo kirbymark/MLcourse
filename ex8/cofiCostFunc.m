@@ -40,19 +40,17 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+% compute collaborative filtering cost function
+diff = (X*Theta'-Y);
+J = sum((diff.^2)(R==1))/2;           % main partial
+J = J + lambda*sum(sum(Theta.^2))/2;  % theta regularized term 
+J = J + lambda*sum(sum(X.^2))/2;      % x regularized term 
 
+X_grad = (diff.*R)*Theta;             %unregularized gradient for x
+Theta_grad = ((diff.*R)'*X);          %unregularized gradient for theta
 
-
-
-
-
-
-
-
-
-
-
-
+X_grad = X_grad + (lambda * X);             % add regularized term for x
+Theta_grad = Theta_grad + (lambda * Theta);  % add regularized term for theta
 
 
 % =============================================================
